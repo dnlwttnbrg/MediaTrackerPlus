@@ -16,7 +16,7 @@ export const useItems = (args: Items.Paginated.RequestQuery) => {
   const selectRandom = args.selectRandom ?? false;
 
   const { error, data, isFetched } = useQuery(
-    ['items', args],
+    [`items${args.showRepeated ? 'showRepeated' : ''}`, args],
     async () =>
       selectRandom
         ? mediaTrackerApi.items.random(args)
