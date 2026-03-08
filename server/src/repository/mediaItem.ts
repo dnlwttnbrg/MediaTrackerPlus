@@ -94,6 +94,10 @@ export type GetItemsArgs = {
    * @description Filter by Genre
    */
   genre?: string;
+  /**
+   * @description Show Repeated Items
+   */
+  showRepeated?: boolean;
 
   onlyWithProgress?: boolean;
 

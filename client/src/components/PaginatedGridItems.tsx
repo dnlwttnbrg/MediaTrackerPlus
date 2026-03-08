@@ -134,6 +134,7 @@ export const PaginatedGridItems: FunctionComponent<{
     page: page,
     orderBy: orderBy,
     sortOrder: sortOrder,
+    showRepeated: showRepeated,
   });
 
   const {

@@ -436,6 +436,15 @@
             }
           },
           {
+            "name": "showRepeated",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "nullable": true
+            }
+          },
+          {
             "name": "onlyWithProgress",
             "in": "query",
             "required": false,
@@ -650,6 +659,15 @@
             }
           },
           {
+            "name": "showRepeated",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "nullable": true
+            }
+          },
+          {
             "name": "onlyWithProgress",
             "in": "query",
             "required": false,
@@ -810,6 +828,15 @@
             "required": false,
             "schema": {
               "type": "string",
+              "nullable": true
+            }
+          },
+          {
+            "name": "showRepeated",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
               "nullable": true
             }
           },
@@ -4013,6 +4040,10 @@
               },
               "genre": {
                 "type": "string",
+                "nullable": true
+              },
+              "showRepeated": {
+                "type": "boolean",
                 "nullable": true
               },
               "onlyWithProgress": {

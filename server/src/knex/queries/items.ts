@@ -74,6 +74,7 @@ const getItemsKnexSql = async (args: GetItemsArgs & { year: string }) => {
     selectRandom,
     year,
     genre,
+    showRepeated,
   } = args;
 
   const currentDateString = new Date().toISOString();
@@ -125,6 +126,11 @@ const getItemsKnexSql = async (args: GetItemsArgs & { year: string }) => {
           .from<Seen>('seen')
           .where('userId', userId)
           .groupBy('mediaItemId')
+          .modify((builder) => {
+            if (showRepeated) {
+              builder.groupBy('date');
+            }
+          })
           .as('lastSeen'),
       'lastSeen.mediaItemId',
       'mediaItem.id'
