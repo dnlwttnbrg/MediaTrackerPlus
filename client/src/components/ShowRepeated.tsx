@@ -12,7 +12,6 @@ export const useShowRepeated = (isStatisticsPage: boolean) => {
   const [showRepeated, setShowRepeated] = useState(currentValue);
 
   const handleToggle = (value: boolean) => {
-    console.log(value);
     updateSearchParams(value);
     setShowRepeated(value);
   };

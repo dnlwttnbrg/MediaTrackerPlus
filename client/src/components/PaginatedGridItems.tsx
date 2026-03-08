@@ -252,7 +252,7 @@ export const PaginatedGridItems: FunctionComponent<{
             <>
               {(searchQuery ? searchResult : items)?.map((mediaItem) => (
                 <GridItem
-                  key={mediaItem.id}
+                  key={mediaItem.id + mediaItem.lastSeenAt}
                   mediaType={args.mediaType}
                   mediaItem={mediaItem}
                   appearance={{
