@@ -118,7 +118,9 @@ export const PaginatedGridItems: FunctionComponent<{
   );
 
   const { showRepeated, ShowRepeatedComponenet } = useShowRepeated(
-    props.isStatisticsPage
+    props.isStatisticsPage,
+    filter,
+    orderBy
   );
 
   const mainContainerRef = useRef<HTMLDivElement>();

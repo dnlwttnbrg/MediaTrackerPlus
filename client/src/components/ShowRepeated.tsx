@@ -2,8 +2,13 @@ import React, { useState } from 'react';
 import { t } from '@lingui/macro';
 import { useUpdateSearchParams } from 'src/hooks/updateSearchParamsHook';
 import { CheckboxWithTitleAndDescription } from './Checkbox';
+import { MediaItemOrderBy } from 'mediatracker-api';
 
-export const useShowRepeated = (isStatisticsPage: boolean) => {
+export const useShowRepeated = (
+  isStatisticsPage: boolean,
+  filter: unknown,
+  orderBy: MediaItemOrderBy
+) => {
   const { currentValue, updateSearchParams } = useUpdateSearchParams<boolean>({
     filterParam: 'showRepeated',
     initialValue: false,
@@ -12,14 +17,27 @@ export const useShowRepeated = (isStatisticsPage: boolean) => {
   const [showRepeated, setShowRepeated] = useState(currentValue);
 
   const handleToggle = (value: boolean) => {
+    if (value === showRepeated) return;
     updateSearchParams(value);
     setShowRepeated(value);
+  };
+
+  const hideComponenet = () => {
+    if (
+      orderBy !== 'lastSeen' ||
+      isStatisticsPage ||
+      filter['onlyOnWatchlist'] === true
+    ) {
+      handleToggle(false);
+      return true;
+    }
+    return false;
   };
 
   return {
     showRepeated: showRepeated,
     ShowRepeatedComponenet: () => {
-      if (isStatisticsPage) {
+      if (hideComponenet()) {
         return null;
       } else {
         return (
