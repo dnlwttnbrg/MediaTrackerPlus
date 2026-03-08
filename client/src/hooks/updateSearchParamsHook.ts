@@ -11,7 +11,7 @@ export const useUpdateSearchParams = <T>(args: {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const currentValue = searchParams.get(filterParam)
-    ? searchParams.get(filterParam)
+    ? (searchParams.get(filterParam) as T)
     : initialValue;
 
   const deleteFunction = useCallback(

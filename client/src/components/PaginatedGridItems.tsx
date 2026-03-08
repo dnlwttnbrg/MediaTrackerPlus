@@ -9,7 +9,7 @@ import React, {
 
 import clsx from 'clsx';
 import { Link, useSearchParams } from 'react-router-dom';
-import { Plural, Trans } from '@lingui/macro';
+import { Plural, t, Trans } from '@lingui/macro';
 
 import { useSearch } from 'src/api/search';
 import { Items } from 'mediatracker-api';
@@ -18,6 +18,8 @@ import { GridItemAppearanceArgs, GridItem } from 'src/components/GridItem';
 import { useOrderByComponent } from 'src/components/OrderBy';
 import { useFilterBy } from 'src/components/FilterBy';
 import { useUpdateSearchParams } from 'src/hooks/updateSearchParamsHook';
+import { CheckboxWithTitleAndDescription } from './Checkbox';
+import { useShowRepeated } from './ShowRepeated';
 
 const Search: FunctionComponent<{
   onSearch: (value: string) => void;
@@ -113,6 +115,10 @@ export const PaginatedGridItems: FunctionComponent<{
     args.mediaType,
     props.isStatisticsPage,
     handleArgumentChange
+  );
+
+  const { showRepeated, ShowRepeatedComponenet } = useShowRepeated(
+    props.isStatisticsPage
   );
 
   const mainContainerRef = useRef<HTMLDivElement>();
@@ -219,6 +225,9 @@ export const PaginatedGridItems: FunctionComponent<{
                     {showSortOrderControls && !searchQuery && (
                       <>
                         <div className="flex ml-auto">
+                          <ShowRepeatedComponenet />
+                        </div>
+                        <div className="">
                           <FilterByComponent />
                         </div>
                         &nbsp;
