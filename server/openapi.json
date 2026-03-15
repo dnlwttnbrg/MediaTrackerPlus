@@ -409,15 +409,6 @@
             }
           },
           {
-            "name": "selectRandom",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "boolean",
-              "nullable": true
-            }
-          },
-          {
             "name": "year",
             "in": "query",
             "required": false,
@@ -632,15 +623,6 @@
             }
           },
           {
-            "name": "selectRandom",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "boolean",
-              "nullable": true
-            }
-          },
-          {
             "name": "year",
             "in": "query",
             "required": false,
@@ -712,140 +694,6 @@
                   "$ref": "#/components/schemas/MediaType"
                 }
               ],
-              "nullable": true
-            }
-          },
-          {
-            "name": "orderBy",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "allOf": [
-                {
-                  "$ref": "#/components/schemas/MediaItemOrderBy"
-                }
-              ],
-              "nullable": true
-            }
-          },
-          {
-            "name": "sortOrder",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "allOf": [
-                {
-                  "$ref": "#/components/schemas/SortOrder"
-                }
-              ],
-              "nullable": true
-            }
-          },
-          {
-            "name": "filter",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "nullable": true
-            }
-          },
-          {
-            "name": "onlyOnWatchlist",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "boolean",
-              "nullable": true
-            }
-          },
-          {
-            "name": "onlySeenItems",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "boolean",
-              "nullable": true
-            }
-          },
-          {
-            "name": "onlyWithNextEpisodesToWatch",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "boolean",
-              "nullable": true
-            }
-          },
-          {
-            "name": "onlyWithNextAiring",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "boolean",
-              "nullable": true
-            }
-          },
-          {
-            "name": "onlyWithUserRating",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "boolean",
-              "nullable": true
-            }
-          },
-          {
-            "name": "onlyWithoutUserRating",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "boolean",
-              "nullable": true
-            }
-          },
-          {
-            "name": "selectRandom",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "boolean",
-              "nullable": true
-            }
-          },
-          {
-            "name": "year",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "nullable": true
-            }
-          },
-          {
-            "name": "genre",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "nullable": true
-            }
-          },
-          {
-            "name": "showRepeated",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "boolean",
-              "nullable": true
-            }
-          },
-          {
-            "name": "onlyWithProgress",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "boolean",
               "nullable": true
             }
           }
@@ -4030,10 +3878,6 @@
                 "type": "boolean",
                 "nullable": true
               },
-              "selectRandom": {
-                "type": "boolean",
-                "nullable": true
-              },
               "year": {
                 "type": "string",
                 "nullable": true
@@ -4091,6 +3935,19 @@
           "desc"
         ],
         "type": "string"
+      },
+      "GetRandomItemsRequest": {
+        "type": "object",
+        "properties": {
+          "mediaType": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/MediaType"
+              }
+            ],
+            "nullable": true
+          }
+        }
       },
       "ListDetailsResponse": {
         "allOf": [

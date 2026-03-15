@@ -83,10 +83,6 @@ export type GetItemsArgs = {
    */
   onlyWithoutUserRating?: boolean;
   /**
-   * @description Selects a random Item
-   */
-  selectRandom?: boolean;
-  /**
    * @description Filter by Year
    */
   year?: string;
@@ -99,10 +95,19 @@ export type GetItemsArgs = {
    */
   showRepeated?: boolean;
 
+  selectRandom?: false;
+
   onlyWithProgress?: boolean;
 
   page?: number;
   mediaItemIds?: number[];
+};
+
+export type GetRandomItemsArgs = {
+  userId: number;
+  mediaType?: MediaType;
+  selectRandom?: true;
+  onlyOnWatchlist?: true;
 };
 
 class MediaItemRepository extends repository<MediaItemBase>({
@@ -114,9 +119,8 @@ class MediaItemRepository extends repository<MediaItemBase>({
   public items(
     args: GetItemsArgs & { page: number }
   ): Promise<Pagination<MediaItemItemsResponse>>;
-  public items(
-    args: GetItemsArgs & { random: boolean }
-  ): Promise<MediaItemItemsResponse[]>;
+  public items(args: GetItemsArgs): Promise<MediaItemItemsResponse[]>;
+  public items(args: GetRandomItemsArgs): Promise<MediaItemItemsResponse[]>;
   public items(
     args: Omit<GetItemsArgs, 'page'>
   ): Promise<MediaItemItemsResponse[]>;
