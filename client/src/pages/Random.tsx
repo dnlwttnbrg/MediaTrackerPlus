@@ -1,6 +1,6 @@
 import { MediaType } from 'mediatracker-api';
 import React, { FunctionComponent, useEffect, useState } from 'react';
-import { useItems } from 'src/api/items';
+import { useItems, useRandomItem } from 'src/api/items';
 import { Segment } from './Home';
 import { t } from '@lingui/macro';
 
@@ -13,39 +13,19 @@ const mediaTypes: { [mediaType in MediaType]: string } = {
 };
 
 export const Random: FunctionComponent = () => {
-  const { items: randomMovie } = useItems({
-    orderBy: 'lastSeen',
-    sortOrder: 'desc',
-    onlyOnWatchlist: true,
-    selectRandom: true,
+  const { items: randomMovie } = useRandomItem({
     mediaType: 'movie',
   });
-  const { items: randomTv } = useItems({
-    orderBy: 'lastSeen',
-    sortOrder: 'desc',
-    onlyOnWatchlist: true,
-    selectRandom: true,
+  const { items: randomTv } = useRandomItem({
     mediaType: 'tv',
   });
-  const { items: randomVideoGame } = useItems({
-    orderBy: 'lastSeen',
-    sortOrder: 'desc',
-    onlyOnWatchlist: true,
-    selectRandom: true,
+  const { items: randomVideoGame } = useRandomItem({
     mediaType: 'video_game',
   });
-  const { items: randomBook } = useItems({
-    orderBy: 'lastSeen',
-    sortOrder: 'desc',
-    onlyOnWatchlist: true,
-    selectRandom: true,
+  const { items: randomBook } = useRandomItem({
     mediaType: 'book',
   });
-  const { items: randomAudioBook } = useItems({
-    orderBy: 'lastSeen',
-    sortOrder: 'desc',
-    onlyOnWatchlist: true,
-    selectRandom: true,
+  const { items: randomAudioBook } = useRandomItem({
     mediaType: 'audiobook',
   });
 
