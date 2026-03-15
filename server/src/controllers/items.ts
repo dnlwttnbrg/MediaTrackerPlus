@@ -40,6 +40,7 @@ export class ItemsController {
       onlyWithoutUserRating,
       onlyWithProgress,
       selectRandom,
+      showRepeated,
     } = req.query;
 
     const orderBy = req.query.orderBy || 'title';
@@ -66,6 +67,7 @@ export class ItemsController {
       onlyWithUserRating: onlyWithUserRating,
       onlyWithoutUserRating: onlyWithoutUserRating,
       onlyWithProgress: onlyWithProgress,
+      showRepeated: showRepeated,
     });
 
     res.send(result);
