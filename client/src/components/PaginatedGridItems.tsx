@@ -36,7 +36,7 @@ const Search: FunctionComponent<{
   };
 
   return (
-    <form onSubmit={onFormSubmit} className="flex justify-center w-full mb-6">
+    <form onSubmit={onFormSubmit} className="flex justify-center w-full mb-2">
       <input
         type="text"
         value={textInputValue}
@@ -194,8 +194,11 @@ export const PaginatedGridItems: FunctionComponent<{
             ) : (
               <>
                 {!isLoading && (
-                  <div className="flex">
-                    <div>
+                  <div className="flex flex-wrap">
+                    <div className="order-1  basis-full">
+                      <ShowRepeatedComponenet />
+                    </div>
+                    <div className="order-2">
                       {searchQuery ? (
                         <Plural
                           value={searchResult?.length}
@@ -227,14 +230,10 @@ export const PaginatedGridItems: FunctionComponent<{
 
                     {showSortOrderControls && !searchQuery && (
                       <>
-                        <div className="flex ml-auto">
-                          <ShowRepeatedComponenet />
-                        </div>
-                        <div className="">
+                        <div className="flex ml-auto order-3">
                           <FilterByComponent />
                         </div>
-                        &nbsp;
-                        <div className="">
+                        <div className="order-4">
                           <OrderByComponent />
                         </div>
                       </>

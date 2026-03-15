@@ -42,7 +42,7 @@ export const useShowRepeated = (
       } else {
         return (
           <CheckboxWithTitleAndDescription
-            title={t`Show repeating Items`}
+            title={t`Show Repeats`}
             checked={showRepeated}
             onChange={handleToggle}
           />
