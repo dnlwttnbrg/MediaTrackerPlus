@@ -28,28 +28,6 @@ jobs:
             echo "Tag version and package.json version do not match!"
             exit 1
           fi
-      - if: ${{ github.event.action == 'prereleased' }}
-        name: Publish on npmjs.com [prerelease]
-        continue-on-error: true
-        run: |
-          npm ci
-          npm run build
-          cp README.md server/README.md
-          cd server
-          npm publish --tag unstable
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - if: ${{ github.event.action == 'released' }}
-        name: Publish on npmjs.com
-        continue-on-error: true
-        run: |
-          npm ci
-          npm run build
-          cp README.md server/README.md
-          cd server
-          npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
         with:

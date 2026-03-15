@@ -1,6 +1,7 @@
 import { createExpressRoute } from 'typescript-routes-to-openapi-server';
 import {
   GetItemsArgs,
+  GetRandomItemsArgs,
   mediaItemRepository,
   Pagination,
 } from 'src/repository/mediaItem';
@@ -8,9 +9,14 @@ import { MediaItemItemsResponse } from 'src/entity/mediaItem';
 
 export type GetItemsRequest = Omit<
   GetItemsArgs,
-  'userId' | 'mediaType' | 'mediaItemIds'
+  'userId' | 'mediaType' | 'mediaItemIds' | 'selectRandom'
 > &
   Partial<Pick<GetItemsArgs, 'mediaType'>>;
+
+export type GetRandomItemsRequest = Omit<
+  GetRandomItemsArgs,
+  'userId' | 'selectRandom' | 'onlyOnWatchlist'
+>;
 
 export class ItemsController {
   /**
@@ -39,7 +45,7 @@ export class ItemsController {
       onlyWithUserRating,
       onlyWithoutUserRating,
       onlyWithProgress,
-      selectRandom,
+      showRepeated,
     } = req.query;
 
     const orderBy = req.query.orderBy || 'title';
@@ -66,6 +72,8 @@ export class ItemsController {
       onlyWithUserRating: onlyWithUserRating,
       onlyWithoutUserRating: onlyWithoutUserRating,
       onlyWithProgress: onlyWithProgress,
+      showRepeated: showRepeated,
+      selectRandom: false,
     });
 
     res.send(result);
@@ -94,7 +102,6 @@ export class ItemsController {
       onlyWithUserRating,
       onlyWithoutUserRating,
       onlyWithProgress,
-      selectRandom,
     } = req.query;
 
     const orderBy = req.query.orderBy || 'title';
@@ -113,6 +120,7 @@ export class ItemsController {
       onlyWithUserRating: onlyWithUserRating,
       onlyWithoutUserRating: onlyWithoutUserRating,
       onlyWithProgress: onlyWithProgress,
+      selectRandom: false,
     });
 
     res.send(result);
@@ -126,41 +134,18 @@ export class ItemsController {
   getRandom = createExpressRoute<{
     method: 'get';
     path: '/api/items/random';
-    requestQuery: Omit<GetItemsRequest, 'page'>;
+    requestQuery: GetRandomItemsRequest;
     responseBody: MediaItemItemsResponse[];
   }>(async (req, res) => {
     const userId = Number(req.user);
 
-    const {
-      filter,
-      mediaType,
-      onlyWithNextAiring,
-      onlyWithNextEpisodesToWatch,
-      onlySeenItems,
-      onlyOnWatchlist,
-      onlyWithUserRating,
-      onlyWithoutUserRating,
-      onlyWithProgress,
-      selectRandom,
-    } = req.query;
-
-    const orderBy = req.query.orderBy || 'title';
-    const sortOrder = req.query.sortOrder || 'asc';
+    const { mediaType } = req.query;
 
     const result = await mediaItemRepository.items({
       userId: userId,
       mediaType: mediaType,
-      orderBy: orderBy,
-      sortOrder: sortOrder,
-      filter: filter,
-      onlySeenItems: onlySeenItems,
-      onlyOnWatchlist: onlyOnWatchlist,
-      onlyWithNextEpisodesToWatch: onlyWithNextEpisodesToWatch,
-      onlyWithNextAiring: onlyWithNextAiring,
-      onlyWithUserRating: onlyWithUserRating,
-      onlyWithoutUserRating: onlyWithoutUserRating,
-      onlyWithProgress: onlyWithProgress,
-      selectRandom: selectRandom,
+      selectRandom: true,
+      onlyOnWatchlist: true,
     });
 
     res.send(result);

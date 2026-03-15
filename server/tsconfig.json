@@ -16,7 +16,9 @@
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
     "resolveJsonModule": true,
-    "noEmit": true
+    "noEmit": true,
+    "types": ["jest"],
+    "ignoreDeprecations": "6.0"
   },
   "include": ["src", "__tests__", "scripts"],
   "exclude": ["node_modules"]

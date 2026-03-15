@@ -387,9 +387,9 @@ router.get(
                 onlyWithNextAiring: { type: ['boolean', 'null'] },
                 onlyWithUserRating: { type: ['boolean', 'null'] },
                 onlyWithoutUserRating: { type: ['boolean', 'null'] },
-                selectRandom: { type: ['boolean', 'null'] },
                 year: { type: ['string', 'null'] },
                 genre: { type: ['string', 'null'] },
+                showRepeated: { type: ['boolean', 'null'] },
                 onlyWithProgress: { type: ['boolean', 'null'] },
                 page: { type: ['number', 'null'] },
               },
@@ -476,9 +476,9 @@ router.get(
         onlyWithNextAiring: { type: ['boolean', 'null'] },
         onlyWithUserRating: { type: ['boolean', 'null'] },
         onlyWithoutUserRating: { type: ['boolean', 'null'] },
-        selectRandom: { type: ['boolean', 'null'] },
         year: { type: ['string', 'null'] },
         genre: { type: ['string', 'null'] },
+        showRepeated: { type: ['boolean', 'null'] },
         onlyWithProgress: { type: ['boolean', 'null'] },
       },
     },
@@ -491,49 +491,20 @@ router.get(
     requestQuerySchema: {
       $schema: 'http://json-schema.org/draft-07/schema#',
       definitions: {
+        GetRandomItemsRequest: {
+          type: 'object',
+          properties: {
+            mediaType: {
+              oneOf: [{ $ref: '#/definitions/MediaType' }, { type: 'null' }],
+            },
+          },
+        },
         MediaType: {
           enum: ['audiobook', 'book', 'movie', 'tv', 'video_game'],
           type: 'string',
         },
-        MediaItemOrderBy: {
-          enum: [
-            'lastAiring',
-            'lastSeen',
-            'mediaType',
-            'nextAiring',
-            'progress',
-            'releaseDate',
-            'status',
-            'title',
-            'unseenEpisodes',
-          ],
-          type: 'string',
-        },
-        SortOrder: { enum: ['asc', 'desc'], type: 'string' },
       },
-      type: 'object',
-      properties: {
-        mediaType: {
-          oneOf: [{ $ref: '#/definitions/MediaType' }, { type: 'null' }],
-        },
-        orderBy: {
-          oneOf: [{ $ref: '#/definitions/MediaItemOrderBy' }, { type: 'null' }],
-        },
-        sortOrder: {
-          oneOf: [{ $ref: '#/definitions/SortOrder' }, { type: 'null' }],
-        },
-        filter: { type: ['string', 'null'] },
-        onlyOnWatchlist: { type: ['boolean', 'null'] },
-        onlySeenItems: { type: ['boolean', 'null'] },
-        onlyWithNextEpisodesToWatch: { type: ['boolean', 'null'] },
-        onlyWithNextAiring: { type: ['boolean', 'null'] },
-        onlyWithUserRating: { type: ['boolean', 'null'] },
-        onlyWithoutUserRating: { type: ['boolean', 'null'] },
-        selectRandom: { type: ['boolean', 'null'] },
-        year: { type: ['string', 'null'] },
-        genre: { type: ['string', 'null'] },
-        onlyWithProgress: { type: ['boolean', 'null'] },
-      },
+      $ref: '#/definitions/GetRandomItemsRequest',
     },
   }),
   _ItemsController.getRandom

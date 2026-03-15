@@ -1,6 +1,7 @@
 import { AccessToken } from 'src/entity/accessToken';
 import { Configuration } from 'src/entity/configuration';
 import { List } from 'src/entity/list';
+import { MediaItemBase, MediaType } from 'src/entity/mediaItem';
 import { NotificationPlatformsCredentials } from 'src/entity/notificationPlatformsCredentials';
 import { NotificationsHistory } from 'src/entity/notificationsHistory';
 import { TvEpisode } from 'src/entity/tvepisode';
@@ -8,6 +9,96 @@ import { TvSeason } from 'src/entity/tvseason';
 import { UserRating } from 'src/entity/userRating';
 
 export class Data {
+  static generateSeen = (
+    count: number,
+    start: number,
+    hasYear = true,
+    year: false | number = false
+  ) => {
+    const result = [];
+    for (let i = start; i < count + start; i++) {
+      const item = {
+        id: i + 1,
+        date: hasYear
+          ? new Date(
+              year !== false ? year : 2000 + i,
+              i % 12,
+              (i % 28) + 1
+            ).getTime()
+          : null,
+        mediaItemId: i,
+        userId: Data.user.id,
+      };
+      result.push(item);
+    }
+    return result;
+  };
+
+  static generateMovies = (count: number, start: number) => {
+    const result = [];
+    for (let i = start; i < count + start; i++) {
+      result.push(this.generateMovie(i));
+    }
+    return result;
+  };
+
+  static generateMovie = (id: number) => {
+    const new_id = id;
+    return {
+      id: new_id,
+      lastTimeUpdated: new Date().getTime(),
+      mediaType: 'movie',
+      source: 'tmdb',
+      title: 'movie' + new_id,
+      externalPosterUrl: 'posterUrl',
+      externalBackdropUrl: 'backdropUrl',
+      releaseDate: `${1971 + new_id}-04-12`,
+      tmdbId: 123456 + new_id,
+      runtime: 124 + new_id,
+    };
+  };
+
+  static generateTVShows = (count: number, start: number) => {
+    const result = [];
+    for (let i = start; i < count + start; i++) {
+      result.push(this.generateTVShow(i));
+    }
+    return result;
+  };
+
+  static generateTVShow = (id: number) => {
+    const new_id = id;
+    return {
+      id: new_id,
+      lastTimeUpdated: new Date().getTime(),
+      mediaType: 'tv',
+      source: 'tmdb',
+      title: 'title',
+      externalPosterUrl: 'posterUrl',
+      externalBackdropUrl: 'backdropUrl',
+      releaseDate: `${1971 + new_id}-04-12`,
+      tmdbId: 654321 + new_id,
+      runtime: 124 + new_id,
+    };
+  };
+
+  static addSameMovieMultipleTimesToSeen = (
+    movie: { id: number },
+    count: number
+  ) => {
+    const result = [];
+    for (let i = 0; i < count; i++) {
+      const item = {
+        id: 200 + i,
+        date: new Date(2000 + i, i % 12, (i % 28) + 1).getTime(),
+        mediaItemId: movie.id,
+        userId: Data.user.id,
+      };
+      result.push(item);
+    }
+    return result;
+  };
+
   static tvShow = {
     id: 1,
     lastTimeUpdated: new Date().getTime(),
@@ -81,6 +172,35 @@ export class Data {
     runtime: 124,
   };
 
+  static user_rating = {
+    id: 0,
+    date: 1766831317642,
+    mediaItemId: 100,
+    rating: 2,
+    review: '',
+    userId: 0,
+  };
+
+  static movie_ranked = {
+    id: 100,
+    lastTimeUpdated: new Date().getTime(),
+    mediaType: 'movie',
+    source: 'tmdb',
+    title: 'movie_ranked',
+    externalPosterUrl: 'posterUrl',
+    externalBackdropUrl: 'backdropUrl',
+    releaseDate: '2001-04-12',
+    tmdbId: 111111,
+    runtime: 124,
+  };
+
+  static movie_ranked_seen = {
+    id: 100,
+    date: new Date(2000, 12, 28).getTime(),
+    mediaItemId: 100,
+    userId: 0,
+  };
+
   static videoGame = {
     id: 3,
     lastTimeUpdated: new Date().getTime(),
@@ -131,6 +251,26 @@ export class Data {
     sortOrder: 'asc',
   };
 
+  static movie_for_watchlist = {
+    id: 200,
+    lastTimeUpdated: new Date().getTime(),
+    mediaType: 'movie',
+    source: 'tmdb',
+    title: 'movie_ranked',
+    externalPosterUrl: 'posterUrl',
+    externalBackdropUrl: 'backdropUrl',
+    releaseDate: '2001-04-12',
+    tmdbId: 111111,
+    runtime: 124,
+  };
+
+  static movie_watchlist = {
+    id: 0,
+    listId: Data.watchlist.id,
+    mediaItemId: Data.movie_for_watchlist.id,
+    addedAt: new Date().getTime(),
+  };
+
   static list: List = {
     id: 1,
     createdAt: new Date().getTime(),
@@ -143,6 +283,14 @@ export class Data {
     displayNumbers: false,
     sortBy: 'recently-added',
     sortOrder: 'asc',
+  };
+
+  static seen = {
+    id: 1,
+    date: new Date().getTime(),
+    mediaItemId: this.movie.id,
+    episodeId: this.episode.id,
+    userId: this.user.id,
   };
 
   static listUser2: List = {

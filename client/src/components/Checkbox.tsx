@@ -15,7 +15,7 @@ export const CheckboxWithTitleAndDescription: FunctionComponent<{
           {description}
         </div>
       )}
-      <div className="inline-block pb-2">
+      <div className="inline-block">
         <input
           className="mr-1"
           type="checkbox"

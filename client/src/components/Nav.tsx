@@ -40,7 +40,7 @@ export const NavComponent: FunctionComponent = () => {
       {user ? (
         <>
           <nav className="flex items-center">
-            <div className="hidden md:block">
+            <div className="hidden md:block md:overflow-x-scroll md:mr-4">
               <div className="flex flex-col md:flex-row">
                 {routes.map((route) => (
                   <span
