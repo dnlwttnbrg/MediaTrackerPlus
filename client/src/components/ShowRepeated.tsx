@@ -23,8 +23,6 @@ export const useShowRepeated = (
     setShowRepeated(value);
   };
 
-  console.log(disable);
-
   const hideComponenet = () => {
     if (
       orderBy !== 'lastSeen' ||
