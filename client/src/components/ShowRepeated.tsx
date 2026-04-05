@@ -7,7 +7,8 @@ import { MediaItemOrderBy } from 'mediatracker-api';
 export const useShowRepeated = (
   isStatisticsPage: boolean,
   filter: unknown,
-  orderBy: MediaItemOrderBy
+  orderBy: MediaItemOrderBy,
+  disable: boolean
 ) => {
   const { currentValue, updateSearchParams } = useUpdateSearchParams<boolean>({
     filterParam: 'showRepeated',
@@ -22,11 +23,14 @@ export const useShowRepeated = (
     setShowRepeated(value);
   };
 
+  console.log(disable);
+
   const hideComponenet = () => {
     if (
       orderBy !== 'lastSeen' ||
       isStatisticsPage ||
-      filter['onlyOnWatchlist'] === true
+      filter['onlyOnWatchlist'] === true ||
+      disable
     ) {
       handleToggle(false);
       return true;
@@ -35,7 +39,7 @@ export const useShowRepeated = (
   };
 
   return {
-    showRepeated: showRepeated,
+    showRepeated: disable ? disable : showRepeated,
     ShowRepeatedComponenet: () => {
       if (hideComponenet()) {
         return null;

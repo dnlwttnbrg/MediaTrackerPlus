@@ -10,6 +10,7 @@ export const WatchlistPage: FunctionComponent = () => {
         onlyOnWatchlist: true,
       }}
       showSortOrderControls={true}
+      disableShowRepeated={true}
       showSearch={false}
       gridItemAppearance={{
         showRating: true,
