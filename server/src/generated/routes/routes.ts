@@ -387,6 +387,7 @@ router.get(
                 onlyWithNextAiring: { type: ['boolean', 'null'] },
                 onlyWithUserRating: { type: ['boolean', 'null'] },
                 onlyWithoutUserRating: { type: ['boolean', 'null'] },
+                onlyReleased: { type: ['boolean', 'null'] },
                 year: { type: ['string', 'null'] },
                 genre: { type: ['string', 'null'] },
                 showRepeated: { type: ['boolean', 'null'] },
@@ -476,6 +477,7 @@ router.get(
         onlyWithNextAiring: { type: ['boolean', 'null'] },
         onlyWithUserRating: { type: ['boolean', 'null'] },
         onlyWithoutUserRating: { type: ['boolean', 'null'] },
+        onlyReleased: { type: ['boolean', 'null'] },
         year: { type: ['string', 'null'] },
         genre: { type: ['string', 'null'] },
         showRepeated: { type: ['boolean', 'null'] },
@@ -497,6 +499,8 @@ router.get(
             mediaType: {
               oneOf: [{ $ref: '#/definitions/MediaType' }, { type: 'null' }],
             },
+            onlyOnWatchlist: { type: ['boolean', 'null'] },
+            onlyReleased: { type: ['boolean', 'null'] },
           },
         },
         MediaType: {
