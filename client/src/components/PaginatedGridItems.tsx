@@ -18,7 +18,6 @@ import { GridItemAppearanceArgs, GridItem } from 'src/components/GridItem';
 import { useOrderByComponent } from 'src/components/OrderBy';
 import { useFilterBy } from 'src/components/FilterBy';
 import { useUpdateSearchParams } from 'src/hooks/updateSearchParamsHook';
-import { CheckboxWithTitleAndDescription } from './Checkbox';
 import { useShowRepeated } from './ShowRepeated';
 
 const Search: FunctionComponent<{
@@ -85,8 +84,15 @@ export const PaginatedGridItems: FunctionComponent<{
   isStatisticsPage?: boolean;
   showSearch?: boolean;
   gridItemAppearance?: GridItemAppearanceArgs;
+  disableShowRepeated?: boolean;
 }> = (props) => {
-  const { args, showSortOrderControls, showSearch, gridItemAppearance } = props;
+  const {
+    args,
+    showSortOrderControls,
+    showSearch,
+    gridItemAppearance,
+    disableShowRepeated,
+  } = props;
 
   const [searchParams, setSearchParams] = useSearchParams();
   const [searchQuery, setSearchQuery] = useState<string>();
@@ -120,7 +126,8 @@ export const PaginatedGridItems: FunctionComponent<{
   const { showRepeated, ShowRepeatedComponenet } = useShowRepeated(
     props.isStatisticsPage,
     filter,
-    orderBy
+    orderBy,
+    disableShowRepeated ?? false
   );
 
   const mainContainerRef = useRef<HTMLDivElement>();

@@ -470,4 +470,29 @@ describe('listItemController', () => {
       5
     );
   });
+
+  test('should show items before today', async () => {
+    const itemsController = new ItemsController();
+    await Database.knex('list').insert(Data.watchlist);
+    await Database.knex('mediaItem').insert(Data.generateMovies(10, 0));
+    await Database.knex('listItem').insert(Data.addMoviesToWatchlist(10, 0));
+    await Database.knex('mediaItem').insert(Data.generateMovies(5, 10, true));
+    await Database.knex('listItem').insert(Data.addMoviesToWatchlist(5, 10));
+
+    const res = await request(itemsController.getPaginated, {
+      userId: Data.user.id,
+      requestQuery: {
+        mediaType: 'movie',
+        orderBy: 'lastSeen',
+        sortOrder: 'desc',
+        page: 1,
+        onlyReleased: true,
+        onlyOnWatchlist: true,
+      },
+    });
+
+    expect((res.data as Pagination<MediaItemItemsResponse>).data.length).toBe(
+      10
+    );
+  });
 });
