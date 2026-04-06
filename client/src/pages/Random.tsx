@@ -1,6 +1,6 @@
 import { MediaType } from 'mediatracker-api';
 import React, { FunctionComponent, useEffect, useState } from 'react';
-import { useItems, useRandomItem } from 'src/api/items';
+import { useItems, useRandomItemFromWatchlist } from 'src/api/items';
 import { Segment } from './Home';
 import { t } from '@lingui/macro';
 
@@ -13,19 +13,19 @@ const mediaTypes: { [mediaType in MediaType]: string } = {
 };
 
 export const Random: FunctionComponent = () => {
-  const { items: randomMovie } = useRandomItem({
+  const { items: randomMovie } = useRandomItemFromWatchlist({
     mediaType: 'movie',
   });
-  const { items: randomTv } = useRandomItem({
+  const { items: randomTv } = useRandomItemFromWatchlist({
     mediaType: 'tv',
   });
-  const { items: randomVideoGame } = useRandomItem({
+  const { items: randomVideoGame } = useRandomItemFromWatchlist({
     mediaType: 'video_game',
   });
-  const { items: randomBook } = useRandomItem({
+  const { items: randomBook } = useRandomItemFromWatchlist({
     mediaType: 'book',
   });
-  const { items: randomAudioBook } = useRandomItem({
+  const { items: randomAudioBook } = useRandomItemFromWatchlist({
     mediaType: 'audiobook',
   });
 

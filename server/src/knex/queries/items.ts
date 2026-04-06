@@ -67,6 +67,7 @@ const getItemsKnexSql = async (args: GetItemsArgs & { year: string }) => {
     sortOrder,
     onlyWithNextEpisodesToWatch,
     onlyWithNextAiring,
+    onlyReleased,
     mediaItemIds,
     onlyWithUserRating,
     onlyWithoutUserRating,
@@ -353,6 +354,10 @@ const getItemsKnexSql = async (args: GetItemsArgs & { year: string }) => {
             .where('mediaItem.mediaType', 'tv')
             .orWhere('mediaItem.releaseDate', '<=', currentDateString)
         );
+    }
+
+    if (onlyReleased === true) {
+      query.where('mediaItem.releaseDate', '<=', currentDateString);
     }
 
     // Media type

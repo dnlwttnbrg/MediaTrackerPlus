@@ -409,6 +409,15 @@
             }
           },
           {
+            "name": "onlyReleased",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "nullable": true
+            }
+          },
+          {
             "name": "year",
             "in": "query",
             "required": false,
@@ -623,6 +632,15 @@
             }
           },
           {
+            "name": "onlyReleased",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "nullable": true
+            }
+          },
+          {
             "name": "year",
             "in": "query",
             "required": false,
@@ -694,6 +712,24 @@
                   "$ref": "#/components/schemas/MediaType"
                 }
               ],
+              "nullable": true
+            }
+          },
+          {
+            "name": "onlyOnWatchlist",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "nullable": true
+            }
+          },
+          {
+            "name": "onlyReleased",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
               "nullable": true
             }
           }
@@ -3878,6 +3914,10 @@
                 "type": "boolean",
                 "nullable": true
               },
+              "onlyReleased": {
+                "type": "boolean",
+                "nullable": true
+              },
               "year": {
                 "type": "string",
                 "nullable": true
@@ -3945,6 +3985,14 @@
                 "$ref": "#/components/schemas/MediaType"
               }
             ],
+            "nullable": true
+          },
+          "onlyOnWatchlist": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "onlyReleased": {
+            "type": "boolean",
             "nullable": true
           }
         }

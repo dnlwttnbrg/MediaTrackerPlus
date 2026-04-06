@@ -83,6 +83,10 @@ export type GetItemsArgs = {
    */
   onlyWithoutUserRating?: boolean;
   /**
+   * @description Return only items where release Date is before today
+   */
+  onlyReleased?: boolean;
+  /**
    * @description Filter by Year
    */
   year?: string;
@@ -107,7 +111,8 @@ export type GetRandomItemsArgs = {
   userId: number;
   mediaType?: MediaType;
   selectRandom?: true;
-  onlyOnWatchlist?: true;
+  onlyOnWatchlist?: boolean;
+  onlyReleased?: boolean;
 };
 
 class MediaItemRepository extends repository<MediaItemBase>({

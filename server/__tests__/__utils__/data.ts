@@ -34,15 +34,15 @@ export class Data {
     return result;
   };
 
-  static generateMovies = (count: number, start: number) => {
+  static generateMovies = (count: number, start: number, inFuture = false) => {
     const result = [];
     for (let i = start; i < count + start; i++) {
-      result.push(this.generateMovie(i));
+      result.push(this.generateMovie(i, inFuture));
     }
     return result;
   };
 
-  static generateMovie = (id: number) => {
+  static generateMovie = (id: number, inFuture: boolean) => {
     const new_id = id;
     return {
       id: new_id,
@@ -52,7 +52,9 @@ export class Data {
       title: 'movie' + new_id,
       externalPosterUrl: 'posterUrl',
       externalBackdropUrl: 'backdropUrl',
-      releaseDate: `${1971 + new_id}-04-12`,
+      releaseDate: `${
+        inFuture ? new Date().getFullYear() + new_id : 1971 + new_id
+      }-04-12`,
       tmdbId: 123456 + new_id,
       runtime: 124 + new_id,
     };
@@ -269,6 +271,20 @@ export class Data {
     listId: Data.watchlist.id,
     mediaItemId: Data.movie_for_watchlist.id,
     addedAt: new Date().getTime(),
+  };
+
+  static addMoviesToWatchlist = (count: number, start: number) => {
+    const result = [];
+    for (let i = start; i < count + start; i++) {
+      const item = {
+        id: i + 1,
+        listId: Data.watchlist.id,
+        mediaItemId: i,
+        addedAt: new Date().getTime(),
+      };
+      result.push(item);
+    }
+    return result;
   };
 
   static list: List = {

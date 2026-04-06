@@ -15,7 +15,7 @@ export type GetItemsRequest = Omit<
 
 export type GetRandomItemsRequest = Omit<
   GetRandomItemsArgs,
-  'userId' | 'selectRandom' | 'onlyOnWatchlist'
+  'userId' | 'selectRandom'
 >;
 
 export class ItemsController {
@@ -46,6 +46,7 @@ export class ItemsController {
       onlyWithoutUserRating,
       onlyWithProgress,
       showRepeated,
+      onlyReleased,
     } = req.query;
 
     const orderBy = req.query.orderBy || 'title';
@@ -74,6 +75,7 @@ export class ItemsController {
       onlyWithProgress: onlyWithProgress,
       showRepeated: showRepeated,
       selectRandom: false,
+      onlyReleased: onlyReleased,
     });
 
     res.send(result);
@@ -102,6 +104,7 @@ export class ItemsController {
       onlyWithUserRating,
       onlyWithoutUserRating,
       onlyWithProgress,
+      onlyReleased,
     } = req.query;
 
     const orderBy = req.query.orderBy || 'title';
@@ -120,6 +123,7 @@ export class ItemsController {
       onlyWithUserRating: onlyWithUserRating,
       onlyWithoutUserRating: onlyWithoutUserRating,
       onlyWithProgress: onlyWithProgress,
+      onlyReleased: onlyReleased,
       selectRandom: false,
     });
 
@@ -139,13 +143,14 @@ export class ItemsController {
   }>(async (req, res) => {
     const userId = Number(req.user);
 
-    const { mediaType } = req.query;
+    const { mediaType, onlyOnWatchlist, onlyReleased } = req.query;
 
     const result = await mediaItemRepository.items({
       userId: userId,
       mediaType: mediaType,
       selectRandom: true,
-      onlyOnWatchlist: true,
+      onlyOnWatchlist: onlyOnWatchlist,
+      onlyReleased: onlyReleased,
     });
 
     res.send(result);

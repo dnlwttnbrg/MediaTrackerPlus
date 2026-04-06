@@ -39,10 +39,15 @@ export const useItems = (args: Items.Paginated.RequestQuery) => {
   };
 };
 
-export const useRandomItem = (args: Items.Random.RequestQuery) => {
+export const useRandomItemFromWatchlist = (args: Items.Random.RequestQuery) => {
   const { error, data, isFetched } = useQuery(
     ['randomItems', args],
-    async () => mediaTrackerApi.items.random(args),
+    async () =>
+      mediaTrackerApi.items.random({
+        ...args,
+        onlyOnWatchlist: true,
+        onlyReleased: true,
+      }),
     {
       keepPreviousData: true,
     }
